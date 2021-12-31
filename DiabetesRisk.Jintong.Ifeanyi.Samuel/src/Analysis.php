@@ -173,7 +173,7 @@ $nobs=$outs['2'];//print_r($outs);
 	<th align='center' class='borders'>Percent</th><tr>";
 	for ($i=0;$i<$counts;$i++){
 		$percent=round($freqpieses[$i]/$nobs * 100,3);
-		if ($yearpieses[$i]=='9999'){$yearpieses[$i]="Missing";}
+		if ($yearpieses[$i]=='9999'){$yearpieses[$i]="Unknown";}
 		//$check=($yearpieses[$i]=='9999');print_r($check);
 		//print_r($i);print_r($yearpieses[$i]);
 	echo "<tr><td align='center' class='borders'>$yearpieses[$i]</td><td align='center' class='borders'>$freqpieses[$i]</td>
