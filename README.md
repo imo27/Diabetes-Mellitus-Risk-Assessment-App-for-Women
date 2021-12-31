@@ -1,5 +1,6 @@
 # Diabetes-Mellitus-Risk-Assessment-App-for-Women
 This Risk Assessment interface is designed for physicians to enter individual patient records and predict Diabetes Mellitus risk for women using logistic regression based on up-to-date data.  Female patients can assess their own diabetes risk by simply inputting their own information into our interface.  This tool can potentially provide better health outcomes for patients, by effecting earlier mitigating strategies as it pertains to the onset of Diabetes Mellitus Ideally a physician utilizing this interface will be able to store new patient records into a database and also have the ability to search, update, and delete records  as they deem necessary.
+
 Group: Jintong Hou, Ifeanyi Osuchukwu, Samuel Yoon
 
 Install server : apache, php.
