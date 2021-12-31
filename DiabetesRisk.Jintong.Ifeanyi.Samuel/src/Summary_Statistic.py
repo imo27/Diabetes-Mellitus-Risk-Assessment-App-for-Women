@@ -29,12 +29,13 @@ sqlwhere="";
 if var != "SurveyYear":
     if var=="npreg": 
         xlab="Number of pregnancies"; 
-        sqlwhere=" >=0 ";
-    if var=="glucose": xlab="Glucose";sqlwhere=" >0 ";
-    if var=="bmi": xlab="BMI";sqlwhere=" >0 ";
-    if var=="ped": xlab="Diabetes pedigree function value";sqlwhere=" >0 ";
-    if var=="age": xlab="Age";sqlwhere=" >0 ";
-    sqlcond="select "+ var + " from DMdata where " + var + sqlwhere
+        sqlwhere1=" >=0 ";
+        sqlwhere2=" <100 ";
+    if var=="glucose": xlab="Glucose";sqlwhere1=" >0 ";sqlwhere2=" <1000 ";
+    if var=="bmi": xlab="BMI";sqlwhere1=" >0 ";sqlwhere2=" <200 ";
+    if var=="ped": xlab="Diabetes pedigree function value";sqlwhere1=" >0 ";sqlwhere2=" <100 ";
+    if var=="age": xlab="Age";sqlwhere1=" >0 ";sqlwhere2=" <150 ";
+    sqlcond="select "+ var + " from DMdata where " + var + sqlwhere1 + " and " + var + sqlwhere2;
 elif var =="SurveyYear":
     sqlcond="select "+ var + " from DMdata where ID is not NULL " 
 if len(year1in)>0:year1=float(year1in);
@@ -43,7 +44,7 @@ if len(year2in)>0:year2=float(year2in);
 if len(year1in)>0 and len(year2in)==0: sqlcond=sqlcond+"and SurveyYear >="+year1in;
 if len(year1in)==0 and len(year2in)>0: sqlcond=sqlcond+"and SurveyYear <="+year2in;
 if len(year1in)>0 and len(year2in)>0: sqlcond=sqlcond+"and SurveyYear <= "+year2in + " and SurveyYear >= "+year1in ;
-#print(sqlcond)
+# print(sqlcond)
 #if os.path.exists(tempdir+'/DMdata.db')==False: shutil.copyfile('datatemplate/DMdata.db',tempdir+'/DMdata.db')
 try:
 #if 1==1:
@@ -56,41 +57,43 @@ try:
     df=pd.DataFrame(rs)
 except: print("dbissue")
 
-#try:
-if 1==1:
-    dflists=df.values.tolist()
+try:
+#if 1==1:
+    dflists=df.values.tolist()#dflists
     dflist=[]
     for el in dflists:
         try: 
+            #if el =="": el=float('nan')
             el=float(el[0])#remove non-numbers
             dflist.append(float(el));
         except: pass
-    strdflist=dflists.copy()
-
+    #strdflist=dflists.copy()
+    
 
     if var != "SurveyYear":
         print(statistics.mean(dflist));
         print(statistics.stdev(dflist));
         print(statistics.median(dflist));
-        print(min(dflist));print(max(dflist));
+        print(min(dflist));print(max(dflist));print(len(dflist))
     elif var== "SurveyYear":
         num=0
-    
-        for e in dflist:
-            if pd.isna(e):# to calculate percentage of missing values
-                e=9999
-                dflist[num]=e
-                strdflist[num]=str(e)
-            else:
-                strdflist[num]=str(int(e))
+        for e in dflists:
+            try:
+                e=float(e[0])
+                if e >=0 and e<3000:#suppose survey year is valid for [0-3000)
+                
+                    dflists[num]=e
+                else: 
+                    e=9999
+            except: e=9999
+            dflists[num]=str(int(e))
             num=num+1
-            
-        d={x:dflist.count(x) for x in dflist};
-        strd={x:strdflist.count(x) for x in strdflist};
+        d={x:dflists.count(x) for x in dflists};
+        strd={x:dflists.count(x) for x in dflists};
         klist=list(strd.keys());vlist=list(strd.values());
-        print(klist[:]);print(vlist);
+        print(klist[:]);print(vlist);print(len(dflists))
     
-    print(len(dflist))
+    
  
  
     if var != "SurveyYear":
@@ -105,4 +108,4 @@ if 1==1:
         plt.close();
         print(histFileDir.name)
 
-#except: print(dflist,"calissue") 
+except: print(dflist,"calissue") 
