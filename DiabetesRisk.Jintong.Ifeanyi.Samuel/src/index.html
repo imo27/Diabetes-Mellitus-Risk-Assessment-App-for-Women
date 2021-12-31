@@ -1,0 +1,63 @@
+<!-- Ifeanyi Osuchukwu is responsible for MainMenu.php -->
+<html>
+<body>
+<head>
+<meta name="authors" content="Jintong Hou, Ifeanyi Osuchukwu, Samuel Yoon">
+<title> Diabetes Risk Assesment Interface</title>
+<script>
+$(document).click(function(event) {
+  if(
+    $('.toggle > input').is(':checked') &&
+    !$(event.target).parents('.toggle').is('.toggle')
+  ) {
+    $('.toggle > input').prop('checked', false);
+  }
+})
+</script>
+<link rel="stylesheet" href="mainstyle.css">
+</head>
+<main>
+  <h2>Diabetes Risk Assessment</h2>
+  <nav>
+    <div class="dropdown hover">
+      <a href="#">Main Menu</a>
+      <ul>
+        <li><a href="New_records.php">Enter New Records</a></li>
+        <li><a href="Analysis.php">Risk Analysis</a></li>
+        <li><a href="search.php">Search/Update Database</a></li>
+        <li><a href="table.php">Review Database</a></li>
+        
+      </ul>
+    </div>
+    <div class="dropdown toggle">
+      
+    </div>
+  </nav>
+  <section>
+    <h4>Welcome</h4>
+    <h4>
+	Diabetes Risk Assessment Interface
+	</h4>
+    <p>
+		This interface is designed for physicians to enter individual patient records and predict Diabetes Mellitus risk for women using logistic regression 
+	based on up-to-date data.This tool can potentially provide better health outcomes for patients, by effecting earlier mitigating strategies as it pertains to the onset of Diabetes Mellitus
+	Ideally a physician utilizing this interface will be able to store new patient records into a database and also have the ability to search, update, and delete records as they deem necessary.
+
+    </p>
+    <p>
+	Below are the main variables/predictors used for our calculations:<br><br>
+	npreg =number of pregnancies.<br><br>
+	glucose= plasma glucose concentration in an oral glucose tolerance test.<br><br>
+	BMI = body mass index (weight in kg/(height in m2)).<br><br>
+	Ped = diabetes pedigree function.*<br><br>
+	Age=age in years.<br><br>
+	Diabetes = Yes or No, for diabetic according to WHO criteria<br>
+    </p>
+		<p>
+			</a>
+		</p>
+  </section>
+</main>
+
+</body>
+</html>
